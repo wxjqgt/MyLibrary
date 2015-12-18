@@ -1,14 +1,15 @@
-package com.qianfeng.mylibrary;
+package com.gt.mylibrary.activitys;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-public class Activity_WebView extends AppCompatActivity {
+import com.gt.mylibrary.R;
+
+public class Activity_WebView extends BaseActivity {
 
     private WebView webView;
     private ProgressBar progressBar;

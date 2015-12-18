@@ -8,20 +8,31 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activitys.Activity_Recorder">
+    tools:context="com.gt.mylibrary.activitys.Activity_Volley">
 
     <Button
+        android:id="@+id/button_StringRequestGet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始录音"
-        android:id="@+id/button_start"
-        />
+        android:text="volley请求字符串数据get" />
 
     <Button
+        android:id="@+id/button_StringRequestPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="停止录音"
-        android:id="@+id/button_stop"
-        />
+        android:text="volley请求字符串数据post" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="no data"
+            android:id="@+id/text_StringRequest"
+            />
+
+    </ScrollView>
 
 </LinearLayout>

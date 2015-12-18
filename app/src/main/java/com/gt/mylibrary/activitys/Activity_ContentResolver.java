@@ -1,12 +1,13 @@
-package com.qianfeng.mylibrary;
+package com.gt.mylibrary.activitys;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 
-public class Activity_ContentResolver extends AppCompatActivity {
+import com.gt.mylibrary.R;
+
+public class Activity_ContentResolver extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
