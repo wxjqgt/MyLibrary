@@ -26,10 +26,9 @@
         <activity android:name=".activitys.Activity_Recorder" />
         <activity android:name=".activitys.Activity_WebView" />
         <activity android:name=".activitys.Activity_RecyclerView" />
-        <activity android:name=".activitys.BaseActivity">
-
-        </activity>
-        <activity android:name=".activitys.Activity_Volley">
+        <activity android:name=".activitys.BaseActivity"></activity>
+        <activity android:name=".activitys.Activity_Volley"></activity>
+        <activity android:name=".activitys.Activity_Custom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
