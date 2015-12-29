@@ -21,41 +21,51 @@
             android:layout_weight="1"
             android:button="@null"
             android:text="diyige"
+            android:clickable="true"
             android:gravity="center"
+            android:textColor="@drawable/textcolor_selector"
             nr:DrawableSize="10dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
 
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:button="@null"
             android:text="aaa"
             android:gravity="center"
+            android:textColor="@drawable/textcolor_selector"
             nr:DrawableSize="20dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
+            android:clickable="true"
             android:layout_weight="1"
             android:button="@null"
             android:text="bbb"
             android:gravity="center"
             nr:DrawableSize="30dp"
+            android:textColor="@drawable/textcolor_selector"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
+            android:clickable="true"
             android:layout_weight="1"
             android:button="@null"
             android:text="ccc"
+            android:textColor="@drawable/textcolor_selector"
             android:gravity="center"
             nr:DrawableSize="40dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
+            android:clickable="true"
             android:text="ddd"
+            android:textColor="@drawable/textcolor_selector"
             android:button="@null"
             android:gravity="center"
             android:layout_weight="1"

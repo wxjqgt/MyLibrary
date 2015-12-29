@@ -24,7 +24,8 @@ public class NavigationBar_RadioButton extends RadioButton {
         super(context, attrs, defStyle);//TODO Auto-generated constructor stub
         Drawable drawableLeft = null, drawableTop = null,
                 drawableRight = null, drawableBottom = null;
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavigationBar_RadioButton);
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, R.styleable.NavigationBar_RadioButton);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
@@ -49,6 +50,7 @@ public class NavigationBar_RadioButton extends RadioButton {
                     break;
             }
         }
+        //再循环
         a.recycle();
         setCompoundDrawablesWithIntrinsicBounds(drawableLeft, drawableTop, drawableRight, drawableBottom);
     }
