@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="NavigationBar_RadioButton">
-        <attr name="Text" format="string" />
-        <attr name="TextColor" format="color" />
-        <attr name="TextSize" format="dimension" />
-        <attr name="ImageSize" format="dimension"/>
+        <attr name="DrawableSize" format="dimension"/>
+        <attr name="DrawableTop" format="reference"/>
+        <attr name="DrawableBottom" format="reference"/>
+        <attr name="DrawableLeft" format="reference"/>
+        <attr name="DrawableRight" format="reference"/>
     </declare-styleable>
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />

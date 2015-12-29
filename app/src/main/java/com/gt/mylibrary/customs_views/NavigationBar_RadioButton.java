@@ -1,46 +1,74 @@
 package com.gt.mylibrary.customs_views;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
 
-/**
- * Created by wxjqgt on 2015/12/25.
- */
+import com.gt.mylibrary.R;
+
 public class NavigationBar_RadioButton extends RadioButton {
 
-    private int textSize;
-    private int textColor;
-    private String text;
-    private int imageSize;
-    private Paint paint;
+    private int mDrawableSize;// xml文件中设置的大小
 
     public NavigationBar_RadioButton(Context context) {
-        super(context);
-        init();
+        this(context, null, 0);
     }
 
     public NavigationBar_RadioButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
-    public NavigationBar_RadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
+    public NavigationBar_RadioButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);//TODO Auto-generated constructor stub
+        Drawable drawableLeft = null, drawableTop = null,
+                drawableRight = null, drawableBottom = null;
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavigationBar_RadioButton);
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            int attr = a.getIndex(i);
+            switch (attr) {
+                case R.styleable.NavigationBar_RadioButton_DrawableSize:
+                    mDrawableSize = a.getDimensionPixelSize(
+                            R.styleable.NavigationBar_RadioButton_DrawableSize, 30);
+                    break;
+                case R.styleable.NavigationBar_RadioButton_DrawableTop:
+                    drawableTop = a.getDrawable(attr);
+                    break;
+                case R.styleable.NavigationBar_RadioButton_DrawableRight:
+                    drawableRight = a.getDrawable(attr);
+                    break;
+                case R.styleable.NavigationBar_RadioButton_DrawableBottom:
+                    drawableBottom = a.getDrawable(attr);
+                    break;
+                case R.styleable.NavigationBar_RadioButton_DrawableLeft:
+                    drawableLeft = a.getDrawable(attr);
+                    break;
+                default:
+                    break;
+            }
+        }
+        a.recycle();
+        setCompoundDrawablesWithIntrinsicBounds(drawableLeft, drawableTop, drawableRight, drawableBottom);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    public void setCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top, Drawable right, Drawable bottom) {
+        if (mDrawableSize == 0){
+            mDrawableSize = 30;
+        }
+        if (left != null) {
+            left.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        }
+        if (right != null) {
+            right.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        }
+        if (top != null) {
+            top.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        }
+        if (bottom != null) {
+            bottom.setBounds(0, 0, mDrawableSize, mDrawableSize);
+        }
+        setCompoundDrawables(left, top, right, bottom);
     }
-
-    private void init(){
-        paint = new Paint();
-        paint.setColor(textColor);
-        paint.setAntiAlias(true);
-    }
-
 }

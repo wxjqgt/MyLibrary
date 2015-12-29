@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,23 +19,48 @@
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:button="@null"
+            android:text="diyige"
+            android:gravity="center"
+            nr:DrawableSize="10dp"
+            nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
 
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:button="@null"
+            android:text="aaa"
+            android:gravity="center"
+            nr:DrawableSize="20dp"
+            nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:button="@null"
+            android:text="bbb"
+            android:gravity="center"
+            nr:DrawableSize="30dp"
+            nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:button="@null"
+            android:text="ccc"
+            android:gravity="center"
+            nr:DrawableSize="40dp"
+            nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
+            android:text="ddd"
+            android:button="@null"
+            android:gravity="center"
             android:layout_weight="1"
+            nr:DrawableSize="50dp"
+            nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
 
     </RadioGroup>
