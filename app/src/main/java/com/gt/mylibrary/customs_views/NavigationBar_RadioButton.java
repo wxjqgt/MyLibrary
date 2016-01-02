@@ -32,7 +32,7 @@ public class NavigationBar_RadioButton extends RadioButton {
             switch (attr) {
                 case R.styleable.NavigationBar_RadioButton_DrawableSize:
                     mDrawableSize = a.getDimensionPixelSize(
-                            R.styleable.NavigationBar_RadioButton_DrawableSize, 30);
+                            R.styleable.NavigationBar_RadioButton_DrawableSize, 100);
                     break;
                 case R.styleable.NavigationBar_RadioButton_DrawableTop:
                     drawableTop = a.getDrawable(attr);

@@ -17,11 +17,12 @@ public class Mp3Info implements Parcelable{
     private String title;
     private String artist;
     private String album;
+    private String display;
 
     public Mp3Info() {
     }
 
-    public Mp3Info(long id, long albumId, long duration, long size, int isMusic, String url, String title, String artist, String album) {
+    public Mp3Info(String display,long id, long albumId, long duration, long size, int isMusic, String url, String title, String artist, String album) {
         this.id = id;
         this.albumId = albumId;
         this.duration = duration;
@@ -31,6 +32,7 @@ public class Mp3Info implements Parcelable{
         this.title = title;
         this.artist = artist;
         this.album = album;
+        this.display = display;
     }
 
     protected Mp3Info(Parcel in) {
@@ -43,6 +45,7 @@ public class Mp3Info implements Parcelable{
         title = in.readString();
         artist = in.readString();
         album = in.readString();
+        display = in.readString();
     }
 
     public static final Creator<Mp3Info> CREATOR = new Creator<Mp3Info>() {
@@ -56,6 +59,14 @@ public class Mp3Info implements Parcelable{
             return new Mp3Info[size];
         }
     };
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
 
     public long getId() {
         return id;
@@ -141,6 +152,7 @@ public class Mp3Info implements Parcelable{
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
                 ", album='" + album + '\'' +
+                ", display='" + display + '\'' +
                 '}';
     }
 
@@ -160,5 +172,6 @@ public class Mp3Info implements Parcelable{
         dest.writeString(title);
         dest.writeString(artist);
         dest.writeString(album);
+        dest.writeString(display);
     }
 }

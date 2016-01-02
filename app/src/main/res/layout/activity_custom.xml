@@ -9,25 +9,40 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".activitys.Activity_Custom">
 
+    <com.gt.mylibrary.customs_views.CircleImageView_01
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/a"
+        android:id="@+id/view" />
+
+    <com.gt.mylibrary.customs_views.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/a"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <RadioGroup
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:layout_width="0dp"
             android:layout_weight="1"
             android:button="@null"
             android:text="diyige"
+            nr:DrawableSize="30dp"
             android:clickable="true"
             android:gravity="center"
             android:textColor="@drawable/textcolor_selector"
-            nr:DrawableSize="10dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
-
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
             android:clickable="true"
             android:layout_width="0dp"
@@ -36,7 +51,7 @@
             android:text="aaa"
             android:gravity="center"
             android:textColor="@drawable/textcolor_selector"
-            nr:DrawableSize="20dp"
+            nr:DrawableSize="30dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
@@ -58,7 +73,7 @@
             android:text="ccc"
             android:textColor="@drawable/textcolor_selector"
             android:gravity="center"
-            nr:DrawableSize="40dp"
+            nr:DrawableSize="30dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
         <com.gt.mylibrary.customs_views.NavigationBar_RadioButton
@@ -69,10 +84,9 @@
             android:button="@null"
             android:gravity="center"
             android:layout_weight="1"
-            nr:DrawableSize="50dp"
+            nr:DrawableSize="30dp"
             nr:DrawableTop="@mipmap/ic_launcher"
             android:layout_height="match_parent" />
-
     </RadioGroup>
 
 </RelativeLayout>
