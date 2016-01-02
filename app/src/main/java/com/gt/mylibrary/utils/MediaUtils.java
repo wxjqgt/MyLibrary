@@ -11,6 +11,8 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.app.App_mine;
+import com.gt.mylibrary.beans.ImageIfo;
 import com.gt.mylibrary.beans.Mp3Info;
 
 import java.io.FileDescriptor;
@@ -18,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,10 +28,130 @@ import java.util.List;
  */
 public class MediaUtils {
     //获取专辑封面的Uri
-    public static final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
+    public static final Uri albumArtUri =
+            Uri.parse("content://media/external/audio/albumart");
     /*
     * 根据歌曲id查询歌曲信息
     */
+    public static List<ImageIfo> getImageList(){
+        // 指定要查询的uri资源
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        // 获取ContentResolver
+        ContentResolver contentResolver = App_mine.context_app.getContentResolver();
+        // 查询的字段
+        String[] projection = {
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.SIZE,
+                //MediaStore.Images.Media.CONTENT_TYPE,
+                //MediaStore.Images.Media._COUNT,
+                //MediaStore.Images.Media.DESCRIPTION,
+                //MediaStore.Images.Media.WIDTH,
+                //MediaStore.Images.Media.TITLE,
+                MediaStore.Images.Media.HEIGHT
+        };
+        // 条件
+        String selection = MediaStore.Images.Media.MIME_TYPE + "=?";
+        // 条件值(這裡的参数不是图片的格式，而是标准，所有不要改动)
+        String[] selectionArgs = { "image/jpeg" };
+        // 排序
+        String sortOrder = MediaStore.Images.Media.DATE_MODIFIED + " desc";
+        // 查询sd卡上的图片
+        Cursor cursor = contentResolver.query(uri, projection, selection,
+                selectionArgs, sortOrder);
+        List<ImageIfo> imageIfos = null;
+        ImageIfo imageIfo = null;
+        if (cursor != null) {
+            imageIfos = new ArrayList<>();
+            imageIfo = new ImageIfo();
+            cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                // 获得图片的id
+                imageIfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
+                // 获得图片显示的名称
+                imageIfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
+                // 获得图片的信息
+                imageIfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
+                // 获得图片所在的路径(可以使用路径构建URI)
+                imageIfo.setData(cursor.getString(
+                        cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)));
+                /*imageIfo.setTitle(cursor.getString(
+                        cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)));
+                imageIfo.setContent_type(cursor.getString(
+                        cursor.getColumnIndexOrThrow(MediaStore.Images.Media.CONTENT_TYPE)));
+                imageIfo.setCount(cursor.getString(
+                        cursor.getColumnIndexOrThrow(MediaStore.Images.Media._COUNT)));
+                imageIfo.setDescription(
+                        cursor.getString(cursor.getColumnIndexOrThrow(
+                                MediaStore.Images.Media.DESCRIPTION)));
+                imageIfo.setWidth(
+                        cursor.getString(cursor.getColumnIndexOrThrow
+                                (MediaStore.Images.Media.WIDTH)));
+                imageIfo.setHeight(
+                        cursor.getString(cursor.getColumnIndexOrThrow(
+                                MediaStore.Images.Media.HEIGHT)));
+                                */
+                imageIfos.add(imageIfo);
+            }
+            // 关闭cursor
+            cursor.close();
+        }
+        return imageIfos;
+    }
+
+    public static ImageIfo getImageById(int id){
+        ImageIfo imageIfo = null;
+        // 指定要查询的uri资源
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        // 获取ContentResolver
+        ContentResolver contentResolver = App_mine.context_app.getContentResolver();
+        // 查询的字段
+        String[] projection = {
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.SIZE,
+                /*MediaStore.Images.Media.CONTENT_TYPE,
+                MediaStore.Images.Media._COUNT,
+                MediaStore.Images.Media.DESCRIPTION,
+                MediaStore.Images.Media.WIDTH,
+                MediaStore.Images.Media.TITLE,
+                MediaStore.Images.Media.HEIGHT,*/
+        };
+        // 条件
+        String selection = MediaStore.Images.Media.MIME_TYPE + "=" + id;
+        // 条件值(這裡的参数不是图片的格式，而是标准，所有不要改动)
+        String[] selectionArgs = { "image/jpeg" };
+        // 排序
+        String sortOrder = MediaStore.Images.Media.DATE_MODIFIED + " desc";
+        // 查询sd卡上的图片
+        Cursor cursor = contentResolver.query(uri, projection, selection, selectionArgs, sortOrder);
+        if (cursor != null) {
+            imageIfo = new ImageIfo();
+            cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                // 获得图片的id
+                imageIfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
+                // 获得图片显示的名称
+                imageIfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
+                // 获得图片的信息
+                imageIfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
+                // 获得图片所在的路径(可以使用路径构建URI)
+                imageIfo.setData(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)));
+                //imageIfo.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)));
+                //imageIfo.setContent_type(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.CONTENT_TYPE)));
+                //imageIfo.setCount(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._COUNT)));
+                //imageIfo.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DESCRIPTION)));
+                //imageIfo.setWidth(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH)));
+                //imageIfo.setHeight(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT)));
+            }
+            // 关闭cursor
+            cursor.close();
+        }
+        return imageIfo;
+    }
+
     public static Mp3Info getMp3Info(Context context, int id) {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,

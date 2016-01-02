@@ -6,10 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.gt.mylibrary.R;
-import com.gt.mylibrary.beans.Mp3Info;
-import com.gt.mylibrary.configs.Config_mine;
+import com.gt.mylibrary.beans.ImageIfo;
 import com.gt.mylibrary.utils.MediaUtils;
-import com.gt.mylibrary.utils.Storage_Utils;
 
 import java.io.File;
 import java.util.List;
@@ -62,10 +60,14 @@ public class Activity_Custom extends BaseActivity {
     Runnable r = new Runnable() {
         @Override
         public void run() {
-            Storage_Utils.UpdateList(Config_mine.MUSICS);
+            /*Storage_Utils.UpdateList(Config_mine.MUSICS);
             List<Mp3Info> list = MediaUtils.getMp3InfoList(getApplicationContext());
             for (Mp3Info m:list) {
                 System.out.println("m = " + m.getUrl());
+            }*/
+            List<ImageIfo> list = MediaUtils.getImageList();
+            for (ImageIfo m:list) {
+                System.out.println("m = " + m);
             }
         }
     };
