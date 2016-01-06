@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.gt.mylibrary.R;
-import com.gt.mylibrary.utils.VolleyUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,7 +27,6 @@ public class App_mine extends Application {
     public static Context context_app;
     public static ImageLoader universalimageloader;
     public static SharedPreferences sp;
-    public static VolleyUtil volleyUtil;
 
     @Override
     public void onCreate() {
@@ -39,7 +37,6 @@ public class App_mine extends Application {
         request = Volley.newRequestQueue(getApplicationContext());
         context_app = getApplicationContext();
         sp = getSharedPreferences("kugoumusic",MODE_PRIVATE);
-        volleyUtil = new VolleyUtil();
     }
 
     private ImageLoader initImageLoader(Context context) {

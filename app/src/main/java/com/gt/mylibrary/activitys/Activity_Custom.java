@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.beans.ImageIfo;
@@ -69,6 +70,27 @@ public class Activity_Custom extends BaseActivity {
             for (ImageIfo m:list) {
                 System.out.println("m = " + m);
             }
+        }
+    };
+
+
+    public void scrollto(int checkedId) {
+        DisplayMetrics dm = new DisplayMetrics();
+        //context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int windowWitdh = dm.widthPixels;
+        int indicatorWidth = windowWitdh / 6;
+        int currentIndicatorLeft = indicatorWidth * checkedId ;
+        int scrollX = (checkedId > 1 ? currentIndicatorLeft: 0)- indicatorWidth * 2;
+        //hs是一个view
+        //hs.post(runnable);
+    }
+
+    private Runnable runnable = new Runnable() {
+
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            //hs.smoothScrollTo(scrollX, 0);
         }
     };
 

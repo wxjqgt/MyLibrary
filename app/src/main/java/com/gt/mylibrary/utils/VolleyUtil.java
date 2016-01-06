@@ -23,6 +23,17 @@ import java.util.Map;
  */
 public class VolleyUtil {
 
+    public static void GetString(OnStringRequest listener,String url) {
+        VolleyUtil volleyUtil = new VolleyUtil();
+        volleyUtil.StringRequest(listener, url);
+    }
+
+    public static void PostString(OnStringRequest listener,String url, Map<String, String> params) {
+        VolleyUtil volleyUtil = new VolleyUtil();
+        volleyUtil.StringRequest(listener, url, params);
+    }
+
+
     public static RequestQueue requestQueue;
     public static LruCache<String, Bitmap> lruCache;
     private OnStringRequest onStringRequest;
