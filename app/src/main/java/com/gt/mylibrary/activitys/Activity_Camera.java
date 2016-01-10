@@ -154,4 +154,5 @@ public class Activity_Camera extends BaseActivity implements View.OnClickListene
         button_stop.setOnClickListener(this);
         button_image.setOnClickListener(this);
     }
+
 }

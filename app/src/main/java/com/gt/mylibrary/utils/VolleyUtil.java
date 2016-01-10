@@ -15,7 +15,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gt.mylibrary.app.App_mine;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,39 +22,10 @@ import java.util.Map;
  */
 public class VolleyUtil {
 
-    public static void GetString(OnStringRequest listener,String url) {
-        VolleyUtil volleyUtil = new VolleyUtil();
-        volleyUtil.StringRequest(listener, url);
-    }
-
-    public static void PostString(OnStringRequest listener,String url, Map<String, String> params) {
-        VolleyUtil volleyUtil = new VolleyUtil();
-        volleyUtil.StringRequest(listener, url, params);
-    }
-
-
     public static RequestQueue requestQueue;
     public static LruCache<String, Bitmap> lruCache;
-    private OnStringRequest onStringRequest;
-    private Map<String, String> params = new HashMap<>();
-    private String url;
 
-    public VolleyUtil() {}
-
-    public void StringRequest(OnStringRequest listener,String url, Map<String, String> params){
-        this.onStringRequest = listener;
-        this.params = params;
-        this.url = url;
-        POSTStringRequest();
-    }
-
-    public void StringRequest(OnStringRequest listener,String url){
-        this.onStringRequest = listener;
-        this.url = url;
-        GETStringRequest();
-    }
-
-    private void POSTStringRequest(){
+    public static void POSTRequestString(String url, final Map<String, String> params, final OnStringRequest onStringRequest){
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -76,7 +46,7 @@ public class VolleyUtil {
         App_mine.request.add(request);
     }
 
-    private void GETStringRequest(){
+    public static void GETRequestString(String url,final OnStringRequest onStringRequest){
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -114,7 +84,8 @@ public class VolleyUtil {
      * @param errorresid
      */
     public static void requestImage(String url, ImageView iv, int resid, int errorresid){
-        ImageLoader imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+        ImageLoader imageLoader = new ImageLoader(requestQueue,
+                new ImageLoader.ImageCache() {
             @Override
             public Bitmap getBitmap(String url) {
                 return lruCache.get(url);

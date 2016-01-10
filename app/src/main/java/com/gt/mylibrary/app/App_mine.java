@@ -17,6 +17,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.xutils.x;
 
+import in.srain.cube.Cube;
+
 /**
  * Created by wxjqgt on 2015/12/17.
  */
@@ -25,7 +27,7 @@ public class App_mine extends Application {
 
     public static RequestQueue request;
     public static Context context_app;
-    public static ImageLoader universalimageloader;
+    public static ImageLoader universal_imageloader;
     public static SharedPreferences sp;
 
     @Override
@@ -33,20 +35,21 @@ public class App_mine extends Application {
         super.onCreate();
         x.Ext.init(this);
         x.Ext.setDebug(true); // 是否输出debug日志
-        universalimageloader = initImageLoader(getApplicationContext());
+        universal_imageloader = initImageLoader(this);
         request = Volley.newRequestQueue(getApplicationContext());
         context_app = getApplicationContext();
-        sp = getSharedPreferences("kugoumusic",MODE_PRIVATE);
+        sp = getSharedPreferences("MyLibrary",MODE_PRIVATE);
+        Cube.onCreate(this);
     }
 
     private ImageLoader initImageLoader(Context context) {
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.threadPriority(5);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
+        //config.writeDebugLogs(); // Remove for release app
         config.memoryCacheSizePercentage(20);
         config.diskCacheFileCount(100);
         config.defaultDisplayImageOptions(new DisplayImageOptions.Builder()

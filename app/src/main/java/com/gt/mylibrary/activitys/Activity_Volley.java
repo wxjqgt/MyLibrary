@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.gt.mylibrary.R;
-import com.gt.mylibrary.configs.Config_mine;
+import com.gt.mylibrary.constants.Constant_mine;
 import com.gt.mylibrary.utils.VolleyUtil;
 
 import java.util.HashMap;
@@ -30,10 +30,10 @@ public class Activity_Volley extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_StringRequestGet:
-                VolleyUtil.GetString(new Listener(),Config_mine.URL);
+                VolleyUtil.GETRequestString(Constant_mine.URL,new Listener());
                 break;
             case R.id.button_StringRequestPost:
-                VolleyUtil.PostString(new Listener(),Config_mine.FIRST_PAGE_WEBVIEW, getMap(10,0,0));
+                VolleyUtil.POSTRequestString(Constant_mine.FIRST_PAGE_WEBVIEW,getMap(10,0,0),new Listener());
                 break;
             default:
                 break;
