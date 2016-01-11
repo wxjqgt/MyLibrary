@@ -62,6 +62,7 @@ public class VolleyUtil {
         App_mine.request.add(request);
     }
 
+
     public static void initVolley(Context context){
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(context);
