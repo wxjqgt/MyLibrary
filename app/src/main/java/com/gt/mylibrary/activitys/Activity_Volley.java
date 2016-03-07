@@ -28,7 +28,8 @@ public class Activity_Volley extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        int id = v.getId();
+        switch (id){
             case R.id.button_StringRequestGet:
                 VolleyUtil.GETRequestString(Constant_mine.URL,new Listener());
                 break;

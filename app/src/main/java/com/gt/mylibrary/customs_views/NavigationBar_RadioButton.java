@@ -32,7 +32,7 @@ public class NavigationBar_RadioButton extends RadioButton {
             switch (attr) {
                 case R.styleable.NavigationBar_RadioButton_DrawableSize:
                     mDrawableSize = a.getDimensionPixelSize(
-                            R.styleable.NavigationBar_RadioButton_DrawableSize, 100);
+                            R.styleable.NavigationBar_RadioButton_DrawableSize, 0);
                     break;
                 case R.styleable.NavigationBar_RadioButton_DrawableTop:
                     drawableTop = a.getDrawable(attr);
@@ -52,10 +52,12 @@ public class NavigationBar_RadioButton extends RadioButton {
         }
         //再循环
         a.recycle();
-        setCompoundDrawablesWithIntrinsicBounds(drawableLeft, drawableTop, drawableRight, drawableBottom);
+        setCompoundDrawablesWithIntrinsicBounds(
+                drawableLeft, drawableTop, drawableRight, drawableBottom);
     }
 
-    public void setCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top, Drawable right, Drawable bottom) {
+    public void setCompoundDrawablesWithIntrinsicBounds(
+            Drawable left, Drawable top,Drawable right, Drawable bottom) {
         if (mDrawableSize == 0){
             mDrawableSize = 30;
         }

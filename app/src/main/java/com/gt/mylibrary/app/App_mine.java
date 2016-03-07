@@ -17,8 +17,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.xutils.x;
 
-import in.srain.cube.Cube;
-
 /**
  * Created by wxjqgt on 2015/12/17.
  */
@@ -39,7 +37,6 @@ public class App_mine extends Application {
         request = Volley.newRequestQueue(getApplicationContext());
         context_app = getApplicationContext();
         sp = getSharedPreferences("MyLibrary",MODE_PRIVATE);
-        Cube.onCreate(this);
     }
 
     private ImageLoader initImageLoader(Context context) {

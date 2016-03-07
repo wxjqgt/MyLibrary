@@ -16,6 +16,7 @@ import com.gt.mylibrary.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class StaggeredHomeAdapter extends RecyclerView.Adapter<StaggeredHomeAdapter.MyViewHolder>
 {
 
@@ -72,7 +73,7 @@ public class StaggeredHomeAdapter extends RecyclerView.Adapter<StaggeredHomeAdap
 			holder.itemView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					int pos = holder.getLayoutPosition();
+					int pos = holder.getPosition();
 					mOnItemClickLitener.onItemClick(holder.itemView, pos);
 				}
 			});
@@ -82,7 +83,7 @@ public class StaggeredHomeAdapter extends RecyclerView.Adapter<StaggeredHomeAdap
 				@Override
 				public boolean onLongClick(View v)
 				{
-					int pos = holder.getLayoutPosition();
+					int pos = holder.getPosition();
 					mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
 					removeData(pos);
 					return false;
@@ -97,10 +98,10 @@ public class StaggeredHomeAdapter extends RecyclerView.Adapter<StaggeredHomeAdap
 		return mDatas.size();
 	}
 
-	public void addData(int position)
-	{
+
+	public void addData(int position) {
 		mDatas.add(position, "Insert One");
-		mHeights.add( (int) (100 + Math.random() * 300));
+		mHeights.add((int) (100 + Math.random() * 300));
 		notifyItemInserted(position);
 	}
 
@@ -110,8 +111,7 @@ public class StaggeredHomeAdapter extends RecyclerView.Adapter<StaggeredHomeAdap
 		notifyItemRemoved(position);
 	}
 
-	class MyViewHolder extends ViewHolder
-	{
+	class MyViewHolder extends ViewHolder {
 
 		TextView tv;
 

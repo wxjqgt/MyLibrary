@@ -61,7 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
 				@Override
 				public void onClick(View v)
 				{
-					int pos = holder.getLayoutPosition();
+					int pos = holder.getPosition();
 					mOnItemClickLitener.onItemClick(holder.itemView, pos);
 				}
 			});
@@ -71,7 +71,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
 				@Override
 				public boolean onLongClick(View v)
 				{
-					int pos = holder.getLayoutPosition();
+					int pos = holder.getPosition();
 					mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
 					removeData(pos);
 					return false;
