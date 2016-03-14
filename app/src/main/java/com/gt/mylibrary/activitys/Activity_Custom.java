@@ -61,7 +61,7 @@ public class Activity_Custom extends BaseActivity {
     Runnable r = new Runnable() {
         @Override
         public void run() {
-            /*Storage_Utils.UpdateList(Constant_mine.MUSICS);
+            /*Storage_Utils.UpdateData(Constant_mine.MUSICS);
             List<Mp3Info> list = MediaUtils.getMp3InfoList(getApplicationContext());
             for (Mp3Info m:list) {
                 System.out.println("m = " + m.getUrl());

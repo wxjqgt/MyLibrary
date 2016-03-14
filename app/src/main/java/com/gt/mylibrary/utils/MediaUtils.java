@@ -30,10 +30,11 @@ public class MediaUtils {
     //获取专辑封面的Uri
     public static final Uri albumArtUri =
             Uri.parse("content://media/external/audio/albumart");
+
     /*
     * 根据歌曲id查询歌曲信息
     */
-    public static List<ImageIfo> getImageList(){
+    public static List<ImageIfo> getImageList() {
         // 指定要查询的uri资源
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         // 获取ContentResolver
@@ -54,7 +55,7 @@ public class MediaUtils {
         // 条件
         String selection = MediaStore.Images.Media.MIME_TYPE + "=?";
         // 条件值(這裡的参数不是图片的格式，而是标准，所有不要改动)
-        String[] selectionArgs = { "image/jpeg" };
+        String[] selectionArgs = {"image/jpeg"};
         // 排序
         String sortOrder = MediaStore.Images.Media.DATE_MODIFIED + " desc";
         // 查询sd卡上的图片
@@ -64,9 +65,9 @@ public class MediaUtils {
         ImageIfo imageIfo = null;
         if (cursor != null) {
             imageIfos = new ArrayList<>();
-            imageIfo = new ImageIfo();
             cursor.moveToFirst();
             while (cursor.moveToNext()) {
+                imageIfo = new ImageIfo();
                 // 获得图片的id
                 imageIfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
                 // 获得图片显示的名称
@@ -100,7 +101,7 @@ public class MediaUtils {
         return imageIfos;
     }
 
-    public static ImageIfo getImageById(int id){
+    public static ImageIfo getImageById(int id) {
         ImageIfo imageIfo = null;
         // 指定要查询的uri资源
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -122,7 +123,7 @@ public class MediaUtils {
         // 条件
         String selection = MediaStore.Images.Media.MIME_TYPE + "=" + id;
         // 条件值(這裡的参数不是图片的格式，而是标准，所有不要改动)
-        String[] selectionArgs = { "image/jpeg" };
+        String[] selectionArgs = {"image/jpeg"};
         // 排序
         String sortOrder = MediaStore.Images.Media.DATE_MODIFIED + " desc";
         // 查询sd卡上的图片
@@ -258,8 +259,8 @@ public class MediaUtils {
                 if (parcelFileDescriptor != null) {
                     fd = parcelFileDescriptor.getFileDescriptor();
                 }
-            }else {
-                Uri uri = ContentUris.withAppendedId(albumArtUri,album_id);
+            } else {
+                Uri uri = ContentUris.withAppendedId(albumArtUri, album_id);
                 ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
                 if (parcelFileDescriptor != null) {
                     fd = parcelFileDescriptor.getFileDescriptor();
@@ -269,13 +270,13 @@ public class MediaUtils {
             //只进行大小判断
             options.inJustDecodeBounds = true;
             //得到歌曲option然后得到图片大小
-            BitmapFactory.decodeFileDescriptor(fd,null,options);
+            BitmapFactory.decodeFileDescriptor(fd, null, options);
             options.inSampleSize = 100;//目标是在800pixel上显示，需要调用computeSampleSixe获取图片缩放比例
             options.inJustDecodeBounds = false;//互殴去图片比例后开始正式写入
             options.inDither = false;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             //根据option的参数减少所需要的内容
-            bitmap = BitmapFactory.decodeFileDescriptor(fd,null,options);
+            bitmap = BitmapFactory.decodeFileDescriptor(fd, null, options);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -286,52 +287,52 @@ public class MediaUtils {
                                     long abum_id, boolean allowdefault, boolean small) {
         if (abum_id < 0) {
             if (song_id < 0) {
-                Bitmap bitmap = getArtWorkFile(context,song_id,-1);
-                if (bitmap != null){
+                Bitmap bitmap = getArtWorkFile(context, song_id, -1);
+                if (bitmap != null) {
                     return bitmap;
                 }
             }
-            if (allowdefault){
-                return getDefautArtWork(context,small);
+            if (allowdefault) {
+                return getDefautArtWork(context, small);
             }
             return null;
         }
         ContentResolver cr = context.getContentResolver();
-        Uri uri = ContentUris.withAppendedId(albumArtUri,abum_id);
-        if (uri != null){
+        Uri uri = ContentUris.withAppendedId(albumArtUri, abum_id);
+        if (uri != null) {
             InputStream in = null;
             try {
                 in = cr.openInputStream(uri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 1;
                 options.inJustDecodeBounds = true;
-                BitmapFactory.decodeStream(in,null,options);
-                if (small){
-                    options.inSampleSize = computeSampleSize(options,40);
-                }else {
-                    options.inSampleSize = computeSampleSize(options,600);
+                BitmapFactory.decodeStream(in, null, options);
+                if (small) {
+                    options.inSampleSize = computeSampleSize(options, 40);
+                } else {
+                    options.inSampleSize = computeSampleSize(options, 600);
                 }
                 options.inJustDecodeBounds = false;
                 options.inDither = false;
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 in = cr.openInputStream(uri);
-                return BitmapFactory.decodeStream(in,null,options);
-            }catch (Exception e){
-                Bitmap bitmap = getArtWorkFile(context,song_id,abum_id);
-                if (bitmap != null){
-                    if (bitmap.getConfig() == null){
-                        bitmap = bitmap.copy(Bitmap.Config.RGB_565,false);
-                        if (bitmap == null && allowdefault){
-                            return getDefautArtWork(context,small);
+                return BitmapFactory.decodeStream(in, null, options);
+            } catch (Exception e) {
+                Bitmap bitmap = getArtWorkFile(context, song_id, abum_id);
+                if (bitmap != null) {
+                    if (bitmap.getConfig() == null) {
+                        bitmap = bitmap.copy(Bitmap.Config.RGB_565, false);
+                        if (bitmap == null && allowdefault) {
+                            return getDefautArtWork(context, small);
+                        }
                     }
-                    }
-                }else if (allowdefault){
-                    bitmap = getDefautArtWork(context,small);
+                } else if (allowdefault) {
+                    bitmap = getDefautArtWork(context, small);
                 }
                 return bitmap;
-            }finally {
-                try{
-                    if (in != null){
+            } finally {
+                try {
+                    if (in != null) {
                         in.close();
                     }
                 } catch (IOException e) {
@@ -342,22 +343,22 @@ public class MediaUtils {
         return null;
     }
 
-    public static int computeSampleSize(BitmapFactory.Options options,int target){
+    public static int computeSampleSize(BitmapFactory.Options options, int target) {
         int w = options.outWidth;
         int h = options.outHeight;
         int candidatew = w / target;
         int candidateh = h / target;
-        int candidate = Math.max(candidateh,candidatew);
-        if (candidate == 0){
+        int candidate = Math.max(candidateh, candidatew);
+        if (candidate == 0) {
             return 1;
         }
-        if (candidate > 1){
-            if (w > target && (w / target) < target){
+        if (candidate > 1) {
+            if (w > target && (w / target) < target) {
                 candidate -= 1;
             }
         }
-        if (candidate > 1){
-            if (h > target && (h / target) < target){
+        if (candidate > 1) {
+            if (h > target && (h / target) < target) {
                 candidate -= 1;
             }
         }
@@ -367,20 +368,20 @@ public class MediaUtils {
     public static Uri getArtWorkUri(Context context, Long song_id, long abum_id) {
         if (abum_id < 0) {
             if (song_id < 0) {
-                Uri uri = getArtWorkFileUri(song_id,abum_id);
-                if (uri != null){
+                Uri uri = getArtWorkFileUri(song_id, abum_id);
+                if (uri != null) {
                     return uri;
                 }
             }
             return null;
         }
-        Uri uri = ContentUris.withAppendedId(albumArtUri,abum_id);
-        if (uri != null){
+        Uri uri = ContentUris.withAppendedId(albumArtUri, abum_id);
+        if (uri != null) {
             try {
                 return uri;
-            }catch (Exception e){
-                Uri uri1 = getArtWorkFileUri(song_id,abum_id);
-                if (uri1 != null){
+            } catch (Exception e) {
+                Uri uri1 = getArtWorkFileUri(song_id, abum_id);
+                if (uri1 != null) {
                     return uri1;
                 }
                 return uri;
@@ -397,8 +398,8 @@ public class MediaUtils {
         try {
             if (album_id < 0) {
                 uri = Uri.parse("content://media/external/audio/media/" + song_id + "/albumart");
-            }else {
-                uri = ContentUris.withAppendedId(albumArtUri,album_id);
+            } else {
+                uri = ContentUris.withAppendedId(albumArtUri, album_id);
             }
         } catch (Exception e) {
             e.printStackTrace();

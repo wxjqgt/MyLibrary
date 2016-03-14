@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class Storage_Utils {
 
-    public static void UpdateList(String type) {
+    public static void UpdateData(String type) {
         if (type.equals(Constant_mine.MOVIES)
                 || type.equals(Constant_mine.DOCUMENT)
                 || type.equals(Constant_mine.IMAGES)
@@ -45,7 +45,7 @@ public class Storage_Utils {
 
     private static void scanFile(String type) {
         List<File> list = null;
-        SparseArray<Object> data = Storage_Utils.getDatas();
+        SparseArray<Object> data = getDatas();
         Map<String, Object> mapInternal = (Map<String, Object>) data.get(Constant_mine.INTERNALSTORAGE);
         Map<String, Object> mapSD = (Map<String, Object>) data.get(Constant_mine.SDSTORAGE);
         if (mapInternal != null && mapInternal.size() != 0) {
