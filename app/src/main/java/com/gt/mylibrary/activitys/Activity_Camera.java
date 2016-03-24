@@ -1,6 +1,7 @@
 package com.gt.mylibrary.activitys;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
