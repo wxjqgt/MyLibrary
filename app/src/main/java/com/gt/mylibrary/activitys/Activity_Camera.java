@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import com.gt.mylibrary.R;
 
+import org.xutils.view.annotation.ViewInject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

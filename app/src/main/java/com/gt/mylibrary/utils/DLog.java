@@ -37,7 +37,7 @@ public class DLog {
 	private static final int LEVEL = VERBOSE;
 
 	/** 指定默认的 TAG */
-	private static final String TAG = "======";
+	private static final String TAG = "===";
 
 	private DLog() {
 	}
