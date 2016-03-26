@@ -10,9 +10,6 @@ import android.widget.ProgressBar;
  */
 public class VerticalProgressbar extends ProgressBar {
 
-    private int viewWidth;
-    private int viewHeight;
-
     public VerticalProgressbar(Context context) {
         super(context);
     }
