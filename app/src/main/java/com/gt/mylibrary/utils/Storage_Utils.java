@@ -33,12 +33,16 @@ import java.util.Map;
  */
 public class Storage_Utils {
 
+    public static final String MUSICS = "musics";
+    public static final String MOVIES = "movies";
+    public static final String IMAGES = "images";
+    public static final String DOCUMENT = "document";
+    public static final int SDSTORAGE = 1;
+    public static final int INTERNALSTORAGE = 2;
+
     public static void UpdateData(String type) {
-        if (type.equals(Constant_mine.MOVIES)
-                || type.equals(Constant_mine.DOCUMENT)
-                || type.equals(Constant_mine.IMAGES)
-                || type.equals(Constant_mine.MUSICS)
-                ) {
+        if (type.equals(MOVIES) || type.equals(DOCUMENT)
+                || type.equals(IMAGES) || type.equals(MUSICS)) {
             scanFile(type);
         }
     }
@@ -46,8 +50,8 @@ public class Storage_Utils {
     private static void scanFile(String type) {
         List<File> list = null;
         SparseArray<Object> data = getDatas();
-        Map<String, Object> mapInternal = (Map<String, Object>) data.get(Constant_mine.INTERNALSTORAGE);
-        Map<String, Object> mapSD = (Map<String, Object>) data.get(Constant_mine.SDSTORAGE);
+        Map<String, Object> mapInternal = (Map<String, Object>) data.get(INTERNALSTORAGE);
+        Map<String, Object> mapSD = (Map<String, Object>) data.get(SDSTORAGE);
         if (mapInternal != null && mapInternal.size() != 0) {
             list = (List<File>) mapInternal.get(type);
             if (mapSD != null && mapSD.size() != 0) {
@@ -59,20 +63,24 @@ public class Storage_Utils {
                 MediaScannerConnection.scanFile(App_mine.context_app, new String[]{f.getAbsolutePath()}, null, null);
             }
         }
+        list.clear();
+        data.clear();
+        mapInternal.clear();
+        mapSD.clear();
     }
 
     public static SparseArray<Object> getDatas() {
         SparseArray<Object> storages = Loadedata();
-        List<File> list = (List<File>) storages.get(Constant_mine.SDSTORAGE);
+        List<File> list = (List<File>) storages.get(SDSTORAGE);
         Map<String, Object> map = null;
         if (list != null) {
             map = getMap(list);
         }
-        List<File> list1 = (List<File>) storages.get(Constant_mine.INTERNALSTORAGE);
+        List<File> list1 = (List<File>) storages.get(INTERNALSTORAGE);
         Map<String, Object> map1 = getMap(list1);
         SparseArray<Object> data = new SparseArray<>();
-        data.put(Constant_mine.SDSTORAGE, map);
-        data.put(Constant_mine.INTERNALSTORAGE, map1);
+        data.put(SDSTORAGE, map);
+        data.put(INTERNALSTORAGE, map1);
         return data;
     }
 
@@ -143,10 +151,10 @@ public class Storage_Utils {
                 images.add(file);
             }
         }
-        map.put(Constant_mine.MUSICS, misics);
-        map.put(Constant_mine.MOVIES, movies);
-        map.put(Constant_mine.IMAGES, images);
-        map.put(Constant_mine.DOCUMENT, document);
+        map.put(MUSICS, misics);
+        map.put(MOVIES, movies);
+        map.put(IMAGES, images);
+        map.put(DOCUMENT, document);
         return map;
     }
 
@@ -165,9 +173,9 @@ public class Storage_Utils {
                 String p = pt.substring(0, pt.lastIndexOf("/") + 1) + path;
                 File SDStorage = new File(p);
                 getFilesList(SDStorageList, SDStorage);
-                l.put(Constant_mine.SDSTORAGE, SDStorageList);
+                l.put(SDSTORAGE, SDStorageList);
             }
-            l.put(Constant_mine.INTERNALSTORAGE, InternalStorageList);
+            l.put(INTERNALSTORAGE, InternalStorageList);
             return l;
         }
         return null;
