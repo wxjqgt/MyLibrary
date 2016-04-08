@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;

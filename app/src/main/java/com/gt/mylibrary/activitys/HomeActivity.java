@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.adapters.HomeAdapter;
+import com.gt.mylibrary.base.BaseActivity;
 import com.gt.mylibrary.utils.DividerGridItemDecoration;
 
 import java.util.ArrayList;

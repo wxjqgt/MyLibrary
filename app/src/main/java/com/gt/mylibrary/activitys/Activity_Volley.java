@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
 import com.gt.mylibrary.constants.Constant_mine;
 import com.gt.mylibrary.utils.VolleyUtil;
 

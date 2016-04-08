@@ -1,4 +1,4 @@
-package com.gt.mylibrary.activitys;
+package com.gt.mylibrary.base;
 
 import android.app.Activity;
 import android.os.Bundle;

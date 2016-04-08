@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
 
 public class Activity_WebView extends BaseActivity {
 

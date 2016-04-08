@@ -11,11 +11,12 @@ import android.widget.Toast;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.adapters.StaggeredHomeAdapter;
+import com.gt.mylibrary.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaggeredGridLayoutActivity extends BaseActivity{
+public class StaggeredGridLayoutActivity extends BaseActivity {
 
 	private RecyclerView mRecyclerView;
 	private List<String> mDatas;

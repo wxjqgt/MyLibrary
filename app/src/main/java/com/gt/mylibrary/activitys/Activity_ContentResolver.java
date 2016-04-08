@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
 
 public class Activity_ContentResolver extends BaseActivity {
 

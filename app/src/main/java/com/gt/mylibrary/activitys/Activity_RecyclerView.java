@@ -3,9 +3,11 @@ package com.gt.mylibrary.activitys;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.adapters.MyRecyclerViewAdapter;
+import com.gt.mylibrary.base.BaseActivity;
 
 public class Activity_RecyclerView extends BaseActivity {
 
@@ -19,7 +21,7 @@ public class Activity_RecyclerView extends BaseActivity {
         // 创建一个线性布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         // 设置布局管理器
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
         // 创建数据集
         String[] dataset = new String[100];
         for (int i = 0; i < dataset.length; i++) {

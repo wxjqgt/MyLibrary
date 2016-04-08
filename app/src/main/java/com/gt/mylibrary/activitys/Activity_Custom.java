@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
 import com.gt.mylibrary.beans.ImageIfo;
 import com.gt.mylibrary.utils.MediaUtils;
 

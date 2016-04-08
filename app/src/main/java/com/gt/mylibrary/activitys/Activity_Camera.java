@@ -1,7 +1,6 @@
 package com.gt.mylibrary.activitys;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,8 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.gt.mylibrary.R;
-
-import org.xutils.view.annotation.ViewInject;
+import com.gt.mylibrary.base.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;
