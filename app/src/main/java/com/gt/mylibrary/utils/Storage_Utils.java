@@ -12,9 +12,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.SparseArray;
 
-import com.gt.mylibrary.app.App_mine;
+import com.gt.mylibrary.base.App_mine;
 import com.gt.mylibrary.beans.FileProperty;
-import com.gt.mylibrary.constants.Constant_mine;
 
 import java.io.BufferedReader;
 import java.io.File;

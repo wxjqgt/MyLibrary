@@ -13,7 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gt.mylibrary.app.App_mine;
+import com.gt.mylibrary.base.App_mine;
 
 import java.util.Map;
 

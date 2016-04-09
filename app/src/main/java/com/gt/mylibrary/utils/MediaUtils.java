@@ -11,7 +11,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
 import com.gt.mylibrary.R;
-import com.gt.mylibrary.app.App_mine;
+import com.gt.mylibrary.base.App_mine;
 import com.gt.mylibrary.beans.ImageIfo;
 import com.gt.mylibrary.beans.Mp3Info;
 
@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
