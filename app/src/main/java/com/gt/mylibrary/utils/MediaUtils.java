@@ -26,6 +26,27 @@ import java.util.List;
  * Created by Administrator on 2015/11/30.
  */
 public class MediaUtils {
+
+
+    public static List<String> getImagesList(Context context){
+        List<String> images = new ArrayList<String>();
+        ContentResolver c = context.getContentResolver();
+        Cursor cursor = c.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null,
+                MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?",
+                new String[]{"image/jpeg", "image/png"},
+                MediaStore.Images.Media.DATE_MODIFIED
+        );
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        while (cursor.moveToNext()) {
+            String path = cursor.getString(index);
+            images.add(path);
+        }
+        cursor.close();
+        return images;
+    }
+
     //获取专辑封面的Uri
     public static final Uri albumArtUri =
             Uri.parse("content://media/external/audio/albumart");

@@ -26,71 +26,240 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wxjqgt on 2015/12/31.
  */
 public class Storage_Utils {
 
-    public static final String MUSICS = "musics";
-    public static final String MOVIES = "movies";
-    public static final String IMAGES = "images";
+    public static final String MUSICS = "music";
+    public static final String MOVIES = "video";
+    public static final String IMAGES = "image";
     public static final String DOCUMENT = "document";
+    public static final String ALL = "all";
     public static final int SDSTORAGE = 1;
     public static final int INTERNALSTORAGE = 2;
+    public static ExecutorService service;
+    public static SparseArray<Object> data;
+    public static Map<String, Object> mapInternal;
+    public static Map<String, Object> mapSD;
+    public static SparseArray<Object> storages;
 
     public static void UpdateData(String type) {
         if (type.equals(MOVIES) || type.equals(DOCUMENT)
                 || type.equals(IMAGES) || type.equals(MUSICS)) {
-            scanFile(type);
+            setScanFile(type);
+        } else if (type.equals(ALL)) {
+            setScanFile(ALL);
         }
+    }
+
+    private static void setScanFile(final String type) {
+        service = Executors.newSingleThreadExecutor();
+        service.execute(new Runnable() {
+            @Override
+            public void run() {
+                scanFile(type);
+            }
+        });
     }
 
     private static void scanFile(String type) {
-        List<File> list = null;
-        SparseArray<Object> data = getDatas();
-        Map<String, Object> mapInternal = (Map<String, Object>) data.get(INTERNALSTORAGE);
-        Map<String, Object> mapSD = (Map<String, Object>) data.get(SDSTORAGE);
+        List<File> list = new ArrayList<>();
+        if (data == null) {
+            data = getDatas(type);
+        }
+        if (mapInternal == null) {
+            mapInternal = (Map<String, Object>) data.get(INTERNALSTORAGE);
+        }
+        if (mapSD == null) {
+            mapSD = (Map<String, Object>) data.get(SDSTORAGE);
+        }
         if (mapInternal != null && mapInternal.size() != 0) {
-            list = (List<File>) mapInternal.get(type);
+            AddToList(type, list, mapInternal);
             if (mapSD != null && mapSD.size() != 0) {
-                list.addAll((List<File>) mapSD.get(type));
+                AddToList(type, list, mapSD);
             }
         }
-        if (list != null && list.size() != 0) {
-            for (File f : list) {
-                MediaScannerConnection.scanFile(App_mine.context_app, new String[]{f.getAbsolutePath()}, null, null);
+        int j = list.size();
+        if (list != null && j != 0) {
+            for (int i = 0; i < j; i++) {
+                MediaScannerConnection.scanFile(
+                        App_mine.context_app,
+                        new String[]{list.get(i).getAbsolutePath()},
+                        null,
+                        null
+                );
             }
+            list.clear();
         }
-        list.clear();
-        data.clear();
-        mapInternal.clear();
-        mapSD.clear();
     }
 
-    public static SparseArray<Object> getDatas() {
-        SparseArray<Object> storages = Loadedata();
-        List<File> list = (List<File>) storages.get(SDSTORAGE);
-        Map<String, Object> map = null;
-        if (list != null) {
-            map = getMap(list);
+    private static void AddToList(String type, List<File> list, Map<String, Object> map) {
+        if (type.equals(ALL)) {
+            list.addAll((List<File>) map.get(MOVIES));
+            list.addAll((List<File>) map.get(MUSICS));
+            list.addAll((List<File>) map.get(IMAGES));
+            list.addAll((List<File>) map.get(DOCUMENT));
+        } else {
+            list.addAll((List<File>) map.get(type));
         }
-        List<File> list1 = (List<File>) storages.get(INTERNALSTORAGE);
-        Map<String, Object> map1 = getMap(list1);
+    }
+
+    public static SparseArray<Object> getDatas(String type) {
+        if (storages == null) {
+            storages = Loadedata();
+        }
         SparseArray<Object> data = new SparseArray<>();
+        List<File> list = (List<File>) storages.get(SDSTORAGE);
+        List<File> list1 = (List<File>) storages.get(INTERNALSTORAGE);
+        Map<String, Object> map = null;
+        Map<String, Object> map1 = null;
+        if (list != null) {
+            if (type.equals(ALL)) {
+                map = getMap(list);
+                map1 = getMap(list1);
+            } else {
+                map = getMap(list, type);
+                map1 = getMap(list1, type);
+            }
+        }
         data.put(SDSTORAGE, map);
         data.put(INTERNALSTORAGE, map1);
         return data;
     }
 
+    private static void createList(List<File> l, String type) {
+        if (type.equals(MUSICS)) {
+            l = new ArrayList<>();
+        }
+
+        if (type.equals(MOVIES)) {
+            l = new ArrayList<>();
+        }
+
+        if (type.equals(IMAGES)) {
+            l = new ArrayList<>();
+        }
+
+        if (type.equals(DOCUMENT)) {
+            l = new ArrayList<>();
+        }
+    }
+
     //equalsIgnoreCase不区分大小写
+    private static Map<String, Object> getMap(List<File> list, String type) {
+        Map<String, Object> map = new HashMap<>();
+        List<File> musics = null;
+        List<File> document = null;
+        List<File> images = null;
+        List<File> movies = null;
+        createList(musics, type);
+        createList(movies, type);
+        createList(images, type);
+        createList(document, type);
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
+            File file = list.get(i);
+            String name = file.getName().trim();
+            String fileType = getTypeName(name);
+            if (musics != null) {
+                if ("mp3".equalsIgnoreCase(fileType)
+                        || "ape".equalsIgnoreCase(fileType)
+                        || "wma".equalsIgnoreCase(fileType)
+                        || "wav".equalsIgnoreCase(fileType)
+                        || "mod".equalsIgnoreCase(fileType)
+                        || "ra".equalsIgnoreCase(fileType)
+                        || "cd".equalsIgnoreCase(fileType)
+                        || "md".equalsIgnoreCase(fileType)
+                        || "asf".equalsIgnoreCase(fileType)
+                        || "aac".equalsIgnoreCase(fileType)
+                        || "md".equalsIgnoreCase(fileType)
+                        || "mp3pro".equalsIgnoreCase(fileType)
+                        || "vqf".equalsIgnoreCase(fileType)
+                        || "flac".equalsIgnoreCase(fileType)
+                        || "mid".equalsIgnoreCase(fileType)
+                        || "ogg".equalsIgnoreCase(fileType)
+                        || "m4a".equalsIgnoreCase(fileType)
+                        || "aac+".equalsIgnoreCase(fileType)
+                        || "aiff".equalsIgnoreCase(fileType)
+                        || "au".equalsIgnoreCase(fileType)
+                        || "vqf".equalsIgnoreCase(fileType)
+                        ) {
+                    musics.add(file);
+                }
+            }
+            if (movies != null) {
+                if (fileType.equalsIgnoreCase(".mp4")
+                        || fileType.equalsIgnoreCase(".3gp")
+                        || fileType.equalsIgnoreCase(".wmv")
+                        || fileType.equalsIgnoreCase(".ts")
+                        || fileType.equalsIgnoreCase(".rmvb")
+                        || fileType.equalsIgnoreCase(".mov")
+                        || fileType.equalsIgnoreCase(".m4v")
+                        || fileType.equalsIgnoreCase(".avi")
+                        || fileType.equalsIgnoreCase(".m3u8")
+                        || fileType.equalsIgnoreCase(".3gpp")
+                        || fileType.equalsIgnoreCase(".3gpp2")
+                        || fileType.equalsIgnoreCase(".mkv")
+                        || fileType.equalsIgnoreCase(".flv")
+                        || fileType.equalsIgnoreCase(".divx")
+                        || fileType.equalsIgnoreCase(".f4v")
+                        || fileType.equalsIgnoreCase(".rm")
+                        || fileType.equalsIgnoreCase(".asf")
+                        || fileType.equalsIgnoreCase(".ram")
+                        || fileType.equalsIgnoreCase(".mpg")
+                        || fileType.equalsIgnoreCase(".v8")
+                        || fileType.equalsIgnoreCase(".swf")
+                        || fileType.equalsIgnoreCase(".m2v")
+                        || fileType.equalsIgnoreCase(".asx")
+                        || fileType.equalsIgnoreCase(".ra")
+                        || fileType.equalsIgnoreCase(".ndivx")
+                        || fileType.equalsIgnoreCase(".xvid")) {
+                    movies.add(file);
+                }
+            }
+            if (document != null) {
+                if ("txt".equalsIgnoreCase(fileType)
+                        || "docx".equalsIgnoreCase(fileType)
+                        || "pdf".equalsIgnoreCase(fileType)) {
+                    document.add(file);
+                }
+            }
+            if (images != null) {
+                if ("jpg".equalsIgnoreCase(fileType)
+                        || "png".equalsIgnoreCase(fileType)
+                        || "jpeg".equalsIgnoreCase(fileType)) {
+                    images.add(file);
+                }
+            }
+
+        }
+        if (musics != null) {
+            map.put(MUSICS, musics);
+        }
+        if (movies != null) {
+            map.put(MOVIES, movies);
+        }
+        if (images != null) {
+            map.put(IMAGES, images);
+        }
+        if (document != null) {
+            map.put(DOCUMENT, document);
+        }
+        return map;
+    }
+
     private static Map<String, Object> getMap(List<File> list) {
         Map<String, Object> map = new HashMap<>();
-        List<File> misics = new ArrayList<>();
+        List<File> musics = new ArrayList<>();
         List<File> movies = new ArrayList<>();
         List<File> images = new ArrayList<>();
         List<File> document = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
             File file = list.get(i);
             String name = file.getName().trim();
             String fileType = getTypeName(name);
@@ -116,7 +285,7 @@ public class Storage_Utils {
                     || "au".equalsIgnoreCase(fileType)
                     || "vqf".equalsIgnoreCase(fileType)
                     ) {
-                misics.add(file);
+                musics.add(file);
             } else if (fileType.equalsIgnoreCase(".mp4")
                     || fileType.equalsIgnoreCase(".3gp")
                     || fileType.equalsIgnoreCase(".wmv")
@@ -144,18 +313,24 @@ public class Storage_Utils {
                     || fileType.equalsIgnoreCase(".ndivx")
                     || fileType.equalsIgnoreCase(".xvid")) {
                 movies.add(file);
-            } else if ("txt".equals(fileType)) {
+            } else if ("txt".equalsIgnoreCase(fileType)
+                    || "docx".equalsIgnoreCase(fileType)
+                    || "pdf".equalsIgnoreCase(fileType)) {
                 document.add(file);
-            } else if ("jpg".equals(fileType)) {
+            } else if ("jpg".equalsIgnoreCase(fileType)
+                    || "png".equalsIgnoreCase(fileType)
+                    || "jpeg".equalsIgnoreCase(fileType)) {
                 images.add(file);
             }
+
         }
-        map.put(MUSICS, misics);
+        map.put(MUSICS, musics);
         map.put(MOVIES, movies);
         map.put(IMAGES, images);
         map.put(DOCUMENT, document);
         return map;
     }
+
 
     public static SparseArray<Object> Loadedata() {
         List<File> InternalStorageList = new ArrayList<>();
@@ -181,6 +356,7 @@ public class Storage_Utils {
     }
 
     //获取外置存储卡的根路径，如果没有外置存储卡，则返回null
+
     public static String getExtSDCardPath() {
         String sdcard_path = null;
         String sd_default = Environment.getExternalStorageDirectory()
