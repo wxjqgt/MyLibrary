@@ -22,13 +22,12 @@ import java.util.concurrent.Executors;
  */
 public class StringRequstUtil {
 
-    public static ExecutorService service;
+    public static ExecutorService service = Executors.newSingleThreadExecutor();
 
     public static void GetStringRequest(final String url, final OnStringRequstListener onStringRequstListener) {
         if (!isNetworkAvailable()) {
             return;
         }
-        service = Executors.newSingleThreadExecutor();
         service.execute(new Runnable() {
             @Override
             public void run() {
@@ -60,7 +59,6 @@ public class StringRequstUtil {
         if (!isNetworkAvailable()) {
             return;
         }
-        service = Executors.newSingleThreadExecutor();
         service.execute(new Runnable() {
             @Override
             public void run() {

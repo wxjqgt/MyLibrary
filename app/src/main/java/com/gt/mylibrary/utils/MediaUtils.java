@@ -27,7 +27,6 @@ import java.util.List;
  */
 public class MediaUtils {
 
-
     public static List<String> getImagesList(Context context){
         List<String> images = new ArrayList<String>();
         ContentResolver c = context.getContentResolver();
