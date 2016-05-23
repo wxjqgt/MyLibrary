@@ -11,6 +11,7 @@ import com.gt.mylibrary.customs_views.Radarview;
 public class MainActivity extends BaseActivity {
 
     private Radarview radarview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

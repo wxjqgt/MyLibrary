@@ -1,0 +1,58 @@
+package com.gt.mylibrary.activitys;
+
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.Toast;
+
+import com.gt.mylibrary.R;
+import com.gt.mylibrary.base.BaseActivity;
+import com.gt.mylibrary.beans.EventType;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+
+@ContentView(R.layout.activity_event_bus)
+public class Activity_EventBus extends BaseActivity implements View.OnClickListener {
+
+    private EventBus eventBus;
+
+    @ViewInject(R.id.go)
+    private Button go;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        eventBus = EventBus.getDefault();
+        eventBus.register(this);
+        go.setOnClickListener(this);
+    }
+
+    @Subscribe
+    public void OnEventMainThread(EventType eventType){
+        Toast.makeText(this,eventType.getMsg(),Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        eventBus.unregister(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        PopupWindow pw = new PopupWindow(View.inflate(this,R.layout.activity_event_bus1,null), ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        pw.setAnimationStyle(R.style.AppTheme);
+        pw.setBackgroundDrawable(getResources().getDrawable(R.mipmap.login_bg_on));
+        pw.setFocusable(true);
+        pw.setInputMethodMode(PopupWindow.INPUT_METHOD_FROM_FOCUSABLE);
+        pw.setTouchable(true);
+        pw.setOutsideTouchable(true);
+        pw.showAtLocation(go, Gravity.BOTTOM,0,0);
+    }
+}

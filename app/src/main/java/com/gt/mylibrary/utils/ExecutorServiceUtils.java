@@ -8,6 +8,9 @@ import java.util.concurrent.ExecutorService;
 public class ExecutorServiceUtils {
     public static void shutdown(ExecutorService... service) {
         int length = service.length;
+        if(length < 0){
+            return;
+        }
         for (int i = 0; i < length; i++) {
             if (service[i] != null)
                 if (!service[i].isShutdown()) {
