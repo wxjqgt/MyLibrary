@@ -106,7 +106,7 @@ public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<
             this.context = context;
         }
 
-        public void setImageUrl(int id,String url){
+        public void setImageFromUrl(int id,String url){
             ImageView imageView = (ImageView) views.get(id);
             if (imageView == null){
                 imageView = (ImageView) itemView.findViewById(id);
@@ -139,4 +139,5 @@ public abstract class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
+
 }

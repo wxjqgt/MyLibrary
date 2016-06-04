@@ -37,10 +37,9 @@ public class DLog {
 	private static final int LEVEL = VERBOSE;
 
 	/** 指定默认的 TAG */
-	private static final String TAG = "===";
+	private static final String TAG = "sout";
 
-	private DLog() {
-	}
+	private DLog() {}
 
 	/** 是否处于 debug 模式 */
 	public static boolean isDebuggable() {
@@ -168,13 +167,14 @@ public class DLog {
 			if (LEVEL <= VERBOSE)
 				Log.v(tag, msg, tr);
 	}
-//======================== 指定使用 TAG 结束  ========================//
 	
-//======================== 指定使用默认 TAG 开始(个人习惯只使用这两个)  ========================//
+//======================== 指定使用默认 TAG 开始  ========================//
 	public static void error(String msg) {
 			e(TAG, msg);
 	}
-	
+	public static void debug(Object msg){
+		d(TAG,msg.toString());
+	}
 	public static void info(String msg) {
 			i(TAG, msg);
 	}
