@@ -10,7 +10,7 @@ import com.gt.mylibrary.base.App_mine;
 /**
  * Created by Administrator on 2015/12/2.
  */
-public class AppUtils {
+public class AppUtil {
     //隐藏键盘方法
     public static void hideInputMethod(View view){
         InputMethodManager methodManager = (InputMethodManager) App_mine.context_app.getSystemService(Context.INPUT_METHOD_SERVICE);

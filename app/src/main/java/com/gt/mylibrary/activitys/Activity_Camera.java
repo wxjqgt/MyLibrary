@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.base.BaseActivity;
 import com.gt.mylibrary.beans.Country;
+import com.gt.mylibrary.utils.CameraUtil;
 import com.gt.mylibrary.utils.DLog;
 
 import java.io.File;
@@ -50,7 +51,6 @@ public class Activity_Camera extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_camera);
         initView();
         initListener();
-        DLog.debug(hasCamera());
     }
 
     private Uri getOutputMediaFileUri(int type) {
@@ -102,19 +102,6 @@ public class Activity_Camera extends BaseActivity implements View.OnClickListene
             default:
                 break;
         }
-    }
-
-    /**
-     * 判断系统中是否存在可以启动的相机应用
-     *
-     * @return 存在返回true，不存在返回false
-     */
-    public boolean hasCamera() {
-        PackageManager packageManager = this.getPackageManager();
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        List list = packageManager
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
     }
 
     @Override

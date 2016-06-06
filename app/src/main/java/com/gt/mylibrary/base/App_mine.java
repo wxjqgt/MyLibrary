@@ -14,6 +14,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.robin.lazy.cache.CacheLoaderConfiguration;
+import com.robin.lazy.cache.CacheLoaderManager;
+import com.robin.lazy.cache.disk.naming.FileNameGenerator;
 
 import org.xutils.x;
 
