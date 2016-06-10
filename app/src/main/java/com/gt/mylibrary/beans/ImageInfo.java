@@ -3,7 +3,7 @@ package com.gt.mylibrary.beans;
 /**
  * Created by wxjqgt on 2016/1/2.
  */
-public class ImageIfo {
+public class ImageInfo {
 
     private String id;
     private String title;
@@ -16,13 +16,13 @@ public class ImageIfo {
     private String description;
     private String count;
 
-    public ImageIfo() {
+    public ImageInfo() {
     }
 
-    public ImageIfo(String id, String title, String display_name,
-                    long size, String data, String content_type,
-                    String height, String width, String description,
-                    String count) {
+    public ImageInfo(String id, String title, String display_name,
+                     long size, String data, String content_type,
+                     String height, String width, String description,
+                     String count) {
         this.id = id;
         this.title = title;
         this.display_name = display_name;
