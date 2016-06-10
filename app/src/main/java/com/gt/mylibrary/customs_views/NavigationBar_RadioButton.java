@@ -50,7 +50,7 @@ public class NavigationBar_RadioButton extends RadioButton {
                     break;
             }
         }
-        //再循环
+        //回收
         a.recycle();
         setCompoundDrawablesWithIntrinsicBounds(
                 drawableLeft, drawableTop, drawableRight, drawableBottom);

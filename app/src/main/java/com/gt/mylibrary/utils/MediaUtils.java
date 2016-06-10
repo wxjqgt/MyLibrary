@@ -12,7 +12,7 @@ import android.provider.MediaStore;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.base.App_mine;
-import com.gt.mylibrary.beans.ImageIfo;
+import com.gt.mylibrary.beans.ImageInfo;
 import com.gt.mylibrary.beans.Mp3Info;
 
 import java.io.FileDescriptor;
@@ -53,7 +53,7 @@ public class MediaUtils {
     /*
     * 根据歌曲id查询歌曲信息
     */
-    public static List<ImageIfo> getImageList() {
+    public static List<ImageInfo> getImageList() {
         // 指定要查询的uri资源
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         // 获取ContentResolver
@@ -80,21 +80,21 @@ public class MediaUtils {
         // 查询sd卡上的图片
         Cursor cursor = contentResolver.query(uri, projection, selection,
                 selectionArgs, sortOrder);
-        List<ImageIfo> imageIfos = null;
-        ImageIfo imageIfo = null;
+        List<ImageInfo> imageInfos = null;
+        ImageInfo imageInfo = null;
         if (cursor != null) {
-            imageIfos = new ArrayList<>();
+            imageInfos = new ArrayList<>();
             cursor.moveToFirst();
             while (cursor.moveToNext()) {
-                imageIfo = new ImageIfo();
+                imageInfo = new ImageInfo();
                 // 获得图片的id
-                imageIfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
+                imageInfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
                 // 获得图片显示的名称
-                imageIfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
+                imageInfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
                 // 获得图片的信息
-                imageIfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
+                imageInfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
                 // 获得图片所在的路径(可以使用路径构建URI)
-                imageIfo.setData(cursor.getString(
+                imageInfo.setData(cursor.getString(
                         cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)));
                 /*imageIfo.setTitle(cursor.getString(
                         cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)));
@@ -112,16 +112,16 @@ public class MediaUtils {
                         cursor.getString(cursor.getColumnIndexOrThrow(
                                 MediaStore.Images.Media.HEIGHT)));
                                 */
-                imageIfos.add(imageIfo);
+                imageInfos.add(imageInfo);
             }
             // 关闭cursor
             cursor.close();
         }
-        return imageIfos;
+        return imageInfos;
     }
 
-    public static ImageIfo getImageById(int id) {
-        ImageIfo imageIfo = null;
+    public static ImageInfo getImageById(int id) {
+        ImageInfo imageInfo = null;
         // 指定要查询的uri资源
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         // 获取ContentResolver
@@ -148,17 +148,17 @@ public class MediaUtils {
         // 查询sd卡上的图片
         Cursor cursor = contentResolver.query(uri, projection, selection, selectionArgs, sortOrder);
         if (cursor != null) {
-            imageIfo = new ImageIfo();
+            imageInfo = new ImageInfo();
             cursor.moveToFirst();
             while (cursor.moveToNext()) {
                 // 获得图片的id
-                imageIfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
+                imageInfo.setId(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)));
                 // 获得图片显示的名称
-                imageIfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
+                imageInfo.setDisplay_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)));
                 // 获得图片的信息
-                imageIfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
+                imageInfo.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE) / 1024));
                 // 获得图片所在的路径(可以使用路径构建URI)
-                imageIfo.setData(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)));
+                imageInfo.setData(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)));
                 //imageIfo.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)));
                 //imageIfo.setContent_type(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.CONTENT_TYPE)));
                 //imageIfo.setCount(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._COUNT)));
@@ -169,7 +169,7 @@ public class MediaUtils {
             // 关闭cursor
             cursor.close();
         }
-        return imageIfo;
+        return imageInfo;
     }
 
     public static Mp3Info getMp3Info(Context context, int id) {

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Administrator on 2016/6/8.
  */
-public class ADViewpager extends FrameLayout {
+public class ADViewpager extends FrameLayout implements ViewPager.OnPageChangeListener{
 
     private static final int OK = 0x1;
 
@@ -89,54 +89,7 @@ public class ADViewpager extends FrameLayout {
     }
 
     private void build() {
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (onPagerChangeListener != null) {
-                    onPagerChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                int p = position;
-                if (position == count - 1) {
-                    p = 1;
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewPager.setCurrentItem(1, false);
-                        }
-                    }, 1000);
-                } else if (position == 0) {
-                    p = count - 2;
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewPager.setCurrentItem(count - 2, false);
-                        }
-                    }, 1000);
-                }
-                if (lastImageView != null) {
-                    lastImageView.setImageResource(reversRes);
-                }
-                ImageView imageView = (ImageView) linearLayout.getChildAt(p - 1);
-                imageView.setImageResource(frontRes);
-                lastImageView = imageView;
-
-                if (onPagerChangeListener != null) {
-                    onPagerChangeListener.onPageSelected(position);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (onPagerChangeListener != null) {
-                    onPagerChangeListener.onPageScrollStateChanged(state);
-                }
-            }
-        });
-
+        viewPager.setOnPageChangeListener(this);
         int icons = count - 2;
         for (int i = 0; i < icons; i++) {
             ImageView imageView = new ImageView(context);
@@ -156,6 +109,52 @@ public class ADViewpager extends FrameLayout {
 
     public void stopCycle() {
         recycle = false;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (onPagerChangeListener != null) {
+            onPagerChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        int p = position;
+        if (position == count - 1) {
+            p = 1;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(1, false);
+                }
+            }, 1000);
+        } else if (position == 0) {
+            p = count - 2;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(count - 2, false);
+                }
+            }, 1000);
+        }
+        if (lastImageView != null) {
+            lastImageView.setImageResource(reversRes);
+        }
+        ImageView imageView = (ImageView) linearLayout.getChildAt(p - 1);
+        imageView.setImageResource(frontRes);
+        lastImageView = imageView;
+
+        if (onPagerChangeListener != null) {
+            onPagerChangeListener.onPageSelected(position);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if (onPagerChangeListener != null) {
+            onPagerChangeListener.onPageScrollStateChanged(state);
+        }
     }
 
     private void initThreadPool() {

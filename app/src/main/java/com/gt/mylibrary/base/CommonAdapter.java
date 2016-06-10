@@ -8,8 +8,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-public abstract class CommonAdapter<T> extends BaseAdapter
-{
+public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mDatas;
     protected LayoutInflater mInflater;

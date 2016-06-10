@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import com.gt.mylibrary.R;
 import com.gt.mylibrary.base.BaseActivity;
